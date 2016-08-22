@@ -28,18 +28,21 @@ class SpecialBadge: Badge  {
             actionsArray.append(action)
             actionsArray.append(action.reversedAction())
         }
-        
-        let i = arc4random_uniform(3)
-        switch i {
-        case 0:
+        enum BadgeAnimation:Int{
+            case GrowAndShrink = 0,Rotate,Shake
+        }
+        let animation = BadgeAnimation(rawValue: Int(arc4random_uniform(3)))
+       // let i = arc4random_uniform(3)
+        switch animation! {
+        case .GrowAndShrink:
             let action1 = SKAction.scaleTo(0.8, duration: 1.0)
             let action2 = SKAction.scaleTo(1.1, duration: 1.0)
             let sequencedAction = SKAction.sequence([action1, action2])
             runAction(SKAction.repeatActionForever(sequencedAction))
-        case 1:
+        case .Rotate:
             let action = SKAction.rotateByAngle(CGFloat(-M_PI), duration: 1.5)
             runAction(SKAction.repeatActionForever(action))
-        default:
+        case .Shake:
             let sequencedAction = SKAction.sequence(actionsArray)
             runAction(SKAction.repeatActionForever(sequencedAction))
             
