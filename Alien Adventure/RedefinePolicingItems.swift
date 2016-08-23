@@ -19,6 +19,21 @@ extension Hero {
     func redefinePolicingItems() -> (UDItem throws -> Void) {
         
         func policingFilter(item: UDItem) throws -> Void {
+           if let historyPlanet = item.historicalData["PlanetOfOrigin"] as? String {
+                    if historyPlanet == "Cunia"{
+                        throw UDPolicingError.ItemFromCunia
+                        
+                        
+                    }
+                }
+            if item.name.lowercaseString.containsString("laser"){
+                throw UDPolicingError.NameContainsLaser
+            }
+            if item.baseValue < 10 {
+                throw UDPolicingError.ValueLessThan10
+            }
+            
+
             
         }
         
